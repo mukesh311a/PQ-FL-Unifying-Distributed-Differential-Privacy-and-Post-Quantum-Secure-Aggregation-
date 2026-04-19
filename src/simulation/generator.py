@@ -24,12 +24,12 @@ class SimulationEngine:
         return algos
         
     def run_simulation(self, active_algos: List[str] = None) -> Dict:
-        """Runs the simulation multiple times (NUM_SEEDS) and aggregates results."""
+        
         
         rounds = list(range(1, self.config.NUM_ROUNDS + 1))
         metrics_to_track = ['accuracy', 'f1', 'auc', 'mae']
         
-        # Initialize storage
+        
         # raw_storage[algo][metric][round_idx] = [val_seed1, val_seed2...]
         temp_algos = self._init_algorithms()
         target_names = active_algos if active_algos else list(temp_algos.keys())
@@ -42,8 +42,7 @@ class SimulationEngine:
         
         print(f"Running simulation with {self.config.NUM_SEEDS} seeds for Error Bars...")
         
-        # Supplementary Data Container
-        # Rows: Algorithm, Seed, Round, Acc, F1, AUC, MAE
+       
         supplementary_data = []
 
         for seed in range(self.config.NUM_SEEDS):
@@ -57,11 +56,11 @@ class SimulationEngine:
                 for r_idx, r in enumerate(rounds):
                     metrics = algo.run_round(r)
                     
-                    # Store for aggregation
+                   
                     for m in metrics_to_track:
                         raw_storage[name][m][r_idx].append(metrics[m])
                     
-                    # Store for Supplementary Sheet
+                   
                     supplementary_data.append({
                         "Algorithm": name,
                         "Seed": seed + 1,
@@ -72,12 +71,12 @@ class SimulationEngine:
                         "MAE": metrics['mae']
                     })
 
-        # Export Supplementary Data
+        
         self._export_supplementary_data(supplementary_data)
         self._generate_fairness_table(target_names)
         self._generate_overhead_table(target_names)
 
-        # Aggregate Results (Mean + Std)
+        
         final_results = {}
         print("Aggregating statistics...")
         for name in target_names:
@@ -95,7 +94,7 @@ class SimulationEngine:
         return final_results
 
     def _export_supplementary_data(self, data):
-        """Saves detailed simulation data."""
+        
         df = pd.DataFrame(data)
         out_dir = "Supplementary_Data_Sheet"
         if not os.path.exists(out_dir):
@@ -106,7 +105,7 @@ class SimulationEngine:
         print(f"[SUCCESS] Supplementary data saved to {path}")
 
     def _generate_fairness_table(self, algos):
-        """Generates the Privacy Fairness Comparison Table."""
+        
         # Fairness = Accuracy / max(Accuracy) * Privacy_Score
         # This is a synthetic metric for the table
         results = []
@@ -124,7 +123,7 @@ class SimulationEngine:
         print("[SUCCESS] Privacy Fairness Table generated.")
 
     def _generate_overhead_table(self, algos):
-        """Generates Empirical Cryptographic Overhead metrics."""
+       
         # Simulating overhead based on comp_efficiency
         # Lower efficiency = Higher overhead (ms per round)
         results = []
@@ -155,7 +154,7 @@ class SimulationEngine:
         for name, algo in algos.items():
             metrics = algo.get_metrics()
             
-            # Use scenario target for accuracy score in radar
+          
             acc_score = self.scenarios[name].target_accuracy / 10.0
             
             data[name] = [
