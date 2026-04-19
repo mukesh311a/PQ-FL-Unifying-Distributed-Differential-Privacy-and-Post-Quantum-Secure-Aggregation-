@@ -5,21 +5,17 @@ import numpy as np
 import time
 
 def generate_dataset(output_dir="dataset", num_records=10000):
-    """Generates a synthetic 6G-enabled IoT dataset."""
+ 
     
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
         
     print(f"Generating {num_records} records for 6G IoT Dataset...")
-    
-    # 1. Define Attributes
-    # Context: IoT devices in a smart city / healthcare setting 6G network
-    
+           
     ids = [f"DEV_{i:05d}" for i in range(num_records)]
     timestamps = pd.date_range(start="2025-01-01", periods=num_records, freq="T")
     
-    # Attributes for Federated Learning
-    # e.g., Network parameters, Device Status, Sensitive Data (Heart Rate, Location)
+    
     
     data = {
         "Device_ID": ids,
@@ -44,9 +40,9 @@ def generate_dataset(output_dir="dataset", num_records=10000):
     df.to_csv(csv_path, index=False)
     print(f"[SUCCESS] Dataset saved to {csv_path}")
     
-    # Save Attribute Description
+   
     desc = """
-# 6G IoT Federated Learning Dataset - Attribute Description
+#  IoT Federated Learning Dataset - Attribute Description
 
 1. **Device_ID**: Unique identifier for the edge device (client).
 2. **Timestamp**: Time of data recording.
