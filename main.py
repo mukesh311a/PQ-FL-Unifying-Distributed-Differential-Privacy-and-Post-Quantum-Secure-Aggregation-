@@ -4,7 +4,7 @@ import sys
 import os
 import json
 
-# Ensure active directory is in path
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from src.config import SimulationConfig
@@ -18,15 +18,15 @@ def main():
     print("   v1.0.2 - Enterprise Simulation Framework")
     print("=========================================\n")
     
-    # 1. Initialize Configuration
+
     config = SimulationConfig()
     print(f"[INFO] Initialized configuration. Output Dir: {config.OUTPUT_DIR}")
     print(f"[INFO] Simulation Mode: Monte Carlo ({config.NUM_SEEDS} seeds) for Error Bars.")
     
-    # 2. Init Engine
+
     engine = SimulationEngine(config)
     
-    # 3. Running Simulation
+   
     print(f"[INFO] Starting Simulation for {config.NUM_ROUNDS} rounds...")
     metrics_data = engine.run_simulation()
     radar_data = engine.extract_radar_metrics()
@@ -43,12 +43,11 @@ def main():
         
     print(f"[SUCCESS] Simulation complete. Logs saved to {metrics_path}")
     
-    # 4. Statistical Analysis
-    # NOTE: Stats Analyzer needs update to handle dict input (mean/std)
-    # For now, we use the MEAN accuracy for t-tests
+   
+  
     print("\n[INFO] Performing Statistical Analysis (on Mean Accuracy)...")
     
-    # Shim to make metrics_data compatible with old analyzer expectation
+   
     flat_metrics = {}
     for algo, vals in metrics_data.items():
         flat_metrics[algo] = {'accuracy': vals['accuracy']['mean']}
@@ -71,11 +70,11 @@ def main():
     print(f"[SUCCESS] Statistical Report generated at {report_path}")
     print(report)
     
-    # 5. Visualization
+  
     print("\n[INFO] Generating Visualizations...")
     viz = Visualizer(config.OUTPUT_DIR)
     
-    # New method calls
+
     viz.plot_all_metrics(metrics_data)
     viz.plot_radar_chart(radar_data)
     viz.plot_tradeoff_scatter(metrics_data, radar_data)
