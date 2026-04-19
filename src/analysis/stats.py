@@ -6,7 +6,7 @@ from scipy import stats
 from typing import Dict, List
 
 class StatisticalAnalyzer:
-    """Performs statistical validation of simulation results."""
+    """ statistical validation of simulation results."""
     
     def __init__(self, metrics_data: Dict):
         self.data = metrics_data
