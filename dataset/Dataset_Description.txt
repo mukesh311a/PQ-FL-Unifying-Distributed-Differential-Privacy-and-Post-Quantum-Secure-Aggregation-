@@ -1,0 +1,13 @@
+Dataset - Attribute Description
+
+1. **Device_ID**: Unique identifier for the edge device (client).
+2. **Timestamp**: Time of data recording.
+3. **Device_Type**: Category of the IoT device (Wearable, Vehicle, etc.).
+4. **Battery_Level**: Remaining energy percentage (Critical for FL participation).
+5. **Signal_Strength_dBm**: 6G channel quality indicator.
+6. **Latency_ms**: Network latency, critical for 6G ultra-reliable low-latency communication (URLLC).
+7. **Data_Volume_MB**: Amount of local data available for training.
+8. **Local_Model_Accuracy**: Pre-aggregation accuracy of the local model on private data.
+9. **Privacy_Budget_Used**: Cumulative epsilon consumed by the device.
+10. **User_Heart_Rate**: Sensitive health metric (Protected attribute).
+11. **Location_X/Y**: Geo-spatial coordinates (Sensitive attribute).
