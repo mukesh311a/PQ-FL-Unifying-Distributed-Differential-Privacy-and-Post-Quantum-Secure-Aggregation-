@@ -31,7 +31,7 @@ def main():
     metrics_data = engine.run_simulation()
     radar_data = engine.extract_radar_metrics()
     
-    # Save Raw Data
+  
     metrics_path = os.path.join(config.OUTPUT_DIR, config.METRICS_FILE)
     radar_path = os.path.join(config.OUTPUT_DIR, config.RADAR_FILE)
     
